@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>欸！今天要吃啥 — 中國醫藥大學</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+/* ═══════════════════════════════════════
+   全域 & 莫蘭迪色系
+═══════════════════════════════════════ */
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --clay:#A06B52;--clay-d:#4A2C18;--clay-l:#C9977A;--clay-p:#F0E2D6;
+  --rose:#C0A0A0;--rose-l:#D4B8B8;
+  --slate:#7A93A0;--sage:#5C7A58;
+  --bg:#EDE7DF;--card:#FEFCFA;
+  --bdr:#DDD6CE;--bdr2:#A89880;
+  --tx:#3D3028;--muted:#9A8E88;--sub:#7A6E68;
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'Noto Sans TC',sans-serif;
+  background:var(--bg);color:var(--tx);font-size:13px;}
+
+/* ═══════════════════════════════════════
+   AUTH SCREEN
+═══════════════════════════════════════ */
+#authWrap{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#EDE0D0,#D8C8B4);gap:48px;padding:20px;
+}
+.brand{text-align:center;}
+.brand-emoji{font-size:56px;display:block;margin-bottom:10px;}
+.brand-name{font-size:24px;font-weight:700;color:var(--tx);letter-spacing:.5px;}
+.brand-sub{font-size:12px;color:var(--muted);margin-top:6px;}
+
+.auth-card{background:#FFF;border-radius:18px;padding:28px 26px;width:360px;
+  box-shadow:0 8px 32px rgba(120,80,50,.15);}
+.auth-tabs{display:flex;background:#F5F0EB;border-radius:10px;padding:3px;margin-bottom:22px;}
+.auth-tab{flex:1;padding:8px;border-radius:8px;font-size:12px;font-weight:600;
+  text-align:center;cursor:pointer;color:var(--muted);transition:all .2s;}
+.auth-tab.on{background:var(--clay-d);color:#FFF;}
+
+.auth-form{display:none;}
+.auth-form.on{display:block;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.lf{margin-bottom:10px;}
+.ll{font-size:10px;color:var(--sub);letter-spacing:.6px;text-transform:uppercase;
+  margin-bottom:4px;display:block;font-weight:600;}
+.li,.lsel{width:100%;padding:9px 11px;border:1.5px solid #C8C0B8;border-radius:9px;
+  font-size:12px;background:#F8F5F2;color:var(--tx);font-family:inherit;outline:none;
+  margin-bottom:0;}
+.li:focus,.lsel:focus{border-color:var(--clay-d);}
+.auth-btn{width:100%;padding:12px;border:none;border-radius:9px;font-size:14px;
+  font-weight:700;cursor:pointer;font-family:inherit;margin-top:4px;}
+.auth-btn-login{background:var(--clay-d);color:#FFF;}
+.auth-btn-register{background:var(--slate);color:#FFF;}
+.auth-msg{font-size:11px;text-align:center;margin-top:10px;min-height:18px;font-weight:500;}
+
+/* ═══════════════════════════════════════
+   APP LAYOUT
+═══════════════════════════════════════ */
+#appWrap{display:none;min-height:100vh;flex-direction:row;}
+
+/* SIDEBAR */
+.sidebar{width:210px;flex-shrink:0;background:var(--card);border-right:1px solid var(--bdr);
+  display:flex;flex-direction:column;padding:20px 0 16px;}
+.logo{padding:0 18px 16px;border-bottom:1px solid #EDE7DF;}
+.logo-emoji{font-size:28px;display:block;margin-bottom:4px;}
+.logo-title{font-size:13px;font-weight:700;color:var(--tx);}
+.logo-sub{font-size:10px;color:var(--muted);margin-top:1px;}
+.campus-box{padding:12px;border-bottom:1px solid #EDE7DF;}
+.campus-label{font-size:9px;color:var(--muted);letter-spacing:.6px;
+  text-transform:uppercase;margin-bottom:7px;font-weight:700;}
+.campus-btn{display:block;width:100%;padding:8px 10px;border-radius:8px;font-size:11px;
+  cursor:pointer;text-align:left;margin-bottom:5px;font-weight:600;font-family:inherit;
+  transition:all .15s;}
+.campus-btn.on{background:var(--clay-d);color:#FFF;border:2px solid var(--clay-d);}
+.campus-btn.off{background:var(--card);color:var(--tx);border:2px solid var(--bdr2);}
+.campus-btn.off:hover{background:#F0E2D6;}
+.nav{padding:10px;flex:1;}
+.nav-item{display:flex;align-items:center;gap:8px;padding:9px 10px;border-radius:8px;
+  font-size:12px;font-weight:500;cursor:pointer;margin-bottom:3px;
+  color:var(--sub);transition:background .15s;}
+.nav-item.on{background:var(--clay-p);color:var(--clay-d);font-weight:700;}
+.nav-item:hover:not(.on){background:#F5F0EB;}
+.nav-item i{font-size:15px;width:18px;}
+.lucky-side{margin:auto 12px 0;background:var(--clay-d);border-radius:10px;
+  padding:13px;cursor:pointer;transition:opacity .15s;}
+.lucky-side:hover{opacity:.9;}
+.lucky-side-icon{font-size:22px;margin-bottom:5px;display:block;}
+.lucky-side-label{font-size:12px;font-weight:700;color:#FFF;display:block;}
+.lucky-side-sub{font-size:10px;color:rgba(255,255,255,.85);display:block;margin-top:2px;}
+
+/* MAIN */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0;}
+.topbar{background:var(--card);border-bottom:1px solid var(--bdr);padding:12px 20px;
+  display:flex;align-items:center;gap:12px;position:relative;}
+.search-wrap{flex:1;display:flex;align-items:center;gap:8px;background:#F5F0EB;
+  border-radius:8px;padding:8px 12px;border:1.5px solid #C8C0B8;}
+.search-wrap input{border:none;outline:none;font-size:12px;flex:1;color:var(--tx);
+  background:transparent;font-family:inherit;}
+.search-wrap i{font-size:14px;color:var(--sub);}
+.user-pill{display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;
+  background:var(--clay-p);border:2px solid var(--clay);font-size:11px;
+  color:var(--clay-d);cursor:pointer;font-weight:700;}
+.user-pill i{font-size:15px;color:#7A4F38;}
+
+/* ACCOUNT DROPDOWN */
+#acctDropdown{display:none;position:absolute;top:56px;right:20px;background:var(--card);
+  border:1.5px solid var(--bdr);border-radius:14px;padding:18px;min-width:250px;
+  box-shadow:0 8px 28px rgba(80,40,20,.18);z-index:200;}
+#acctDropdown.on{display:block;}
+.acct-avatar{width:44px;height:44px;border-radius:50%;background:var(--clay-d);
+  display:flex;align-items:center;justify-content:center;font-size:20px;
+  color:#FFF;flex-shrink:0;}
+.acct-divider{border:none;border-top:1px solid #EDE7DF;margin:10px 0;}
+.edit-row{display:flex;gap:8px;align-items:center;margin-bottom:10px;}
+.edit-label{font-size:10px;color:var(--muted);font-weight:700;width:44px;flex-shrink:0;}
+.edit-input,.edit-select{flex:1;padding:7px 9px;border:1.5px solid var(--bdr2);
+  border-radius:8px;font-size:12px;color:var(--tx);background:#F5F0EB;
+  font-family:inherit;outline:none;}
+.edit-input:focus,.edit-select:focus{border-color:var(--clay-d);}
+
+/* PAGE */
+.page{flex:1;overflow-y:auto;padding:18px 20px;display:none;}
+.page.on{display:block;}
+.page-title{font-size:15px;font-weight:700;color:var(--tx);margin-bottom:14px;}
+
+/* FILTERS */
+.filter-bar{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
+.fpill{display:flex;align-items:center;gap:4px;padding:6px 11px;border:1.5px solid var(--bdr2);
+  border-radius:10px;font-size:11px;background:var(--card);color:var(--tx);
+  cursor:pointer;font-weight:600;}
+.fpill select{border:none;outline:none;font-size:11px;color:var(--tx);
+  background:transparent;cursor:pointer;font-family:inherit;font-weight:600;}
+.fpill i{font-size:12px;color:var(--sub);}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;}
+.chip{padding:5px 12px;border-radius:10px;font-size:11px;cursor:pointer;
+  border:1.5px solid var(--bdr2);background:var(--card);color:var(--tx);
+  font-weight:600;transition:all .15s;}
+.chip.on{background:var(--clay-d);color:#FFF;border-color:var(--clay-d);}
+.chip:hover:not(.on){background:var(--clay-p);}
+
+/* RESTAURANT GRID */
+.rgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;}
+.rcard{background:var(--card);border:1.5px solid var(--bdr);border-radius:12px;
+  overflow:hidden;cursor:pointer;position:relative;transition:box-shadow .15s,transform .1s;}
+.rcard:hover{box-shadow:0 4px 14px rgba(140,90,60,.18);transform:translateY(-2px);}
+.rimg{height:80px;display:flex;align-items:center;justify-content:center;
+  font-size:32px;position:relative;}
+.rbdg{position:absolute;top:5px;right:5px;background:var(--sage);color:#FFF;
+  font-size:8px;font-weight:700;padding:2px 6px;border-radius:6px;}
+.rdbdg{position:absolute;bottom:4px;left:5px;background:rgba(20,10,4,.58);
+  color:#FFF;font-size:8px;font-weight:600;padding:1px 5px;border-radius:6px;}
+.fav-btn{position:absolute;top:5px;left:5px;background:rgba(255,255,255,.88);
+  border:none;border-radius:50%;width:26px;height:26px;display:flex;
+  align-items:center;justify-content:center;cursor:pointer;font-size:14px;z-index:2;}
+.rinfo{padding:9px 10px;}
+.rname{font-size:12px;font-weight:700;color:var(--tx);white-space:nowrap;
+  overflow:hidden;text-overflow:ellipsis;margin-bottom:3px;}
+.rmeta{font-size:10px;color:var(--sub);display:flex;align-items:center;
+  gap:3px;font-weight:500;}
+.rdot{width:5px;height:5px;background:var(--sage);border-radius:50%;display:inline-block;}
+
+/* DEALS */
+.deal-tabs{display:flex;gap:6px;margin-bottom:14px;}
+.dtab{padding:6px 14px;border-radius:10px;font-size:11px;border:1.5px solid var(--bdr2);
+  background:var(--card);color:var(--tx);cursor:pointer;font-weight:600;}
+.dtab.on{background:var(--rose);color:#FFF;border-color:var(--rose);}
+.dcard{background:var(--card);border:1.5px solid var(--bdr);border-radius:12px;
+  padding:12px 14px;display:flex;gap:12px;align-items:center;margin-bottom:8px;cursor:pointer;}
+.dcard:hover{box-shadow:0 2px 8px rgba(140,90,60,.12);}
+.dico{width:44px;height:44px;border-radius:11px;display:flex;align-items:center;
+  justify-content:center;font-size:20px;flex-shrink:0;}
+.dept-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;}
+.dept-item{padding:8px;border:1.5px solid var(--bdr2);border-radius:10px;font-size:11px;
+  text-align:center;cursor:pointer;background:var(--card);color:var(--tx);
+  font-weight:600;transition:all .15s;}
+.dept-item:hover,.dept-item.sel{background:var(--clay-p);color:var(--clay-d);
+  border-color:var(--clay);}
+
+/* FAV / HIST */
+.hcard{background:var(--card);border:1.5px solid var(--bdr);border-radius:12px;
+  padding:12px 14px;display:flex;gap:12px;align-items:center;margin-bottom:8px;cursor:pointer;}
+.hcard:hover{box-shadow:0 2px 8px rgba(140,90,60,.1);}
+.hico{width:44px;height:44px;border-radius:11px;display:flex;align-items:center;
+  justify-content:center;font-size:22px;flex-shrink:0;}
+.empty-state{text-align:center;padding:48px 20px;color:var(--muted);}
+.empty-state div{font-size:36px;margin-bottom:10px;}
+.empty-state p{font-size:13px;font-weight:500;line-height:1.7;}
+
+/* FRIENDS / GROUPS */
+.sec-lbl{font-size:10px;font-weight:700;color:var(--sub);letter-spacing:.5px;
+  text-transform:uppercase;margin-bottom:10px;}
+.friends-layout{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.fc{background:var(--card);border:1.5px solid var(--bdr);border-radius:11px;
+  padding:11px 13px;display:flex;gap:10px;align-items:center;margin-bottom:7px;}
+.favt{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;
+  justify-content:center;font-size:14px;flex-shrink:0;color:#FFF;}
+.af-panel{background:#F5F0EB;border:1.5px solid var(--bdr);border-radius:11px;
+  padding:12px;margin-bottom:8px;display:none;}
+.af-panel input{width:100%;padding:8px 10px;border:1.5px solid var(--bdr2);
+  border-radius:8px;font-size:11px;outline:none;background:var(--card);
+  color:var(--tx);font-family:inherit;margin-bottom:8px;}
+.gc{background:var(--card);border:1.5px solid var(--bdr);border-radius:12px;
+  padding:13px;margin-bottom:10px;}
+.gc-hdr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:7px;}
+.gc-name{font-size:13px;font-weight:700;color:var(--tx);}
+.timer{font-size:11px;color:var(--clay-d);background:var(--clay-p);padding:3px 8px;
+  border-radius:8px;font-variant-numeric:tabular-nums;font-weight:700;
+  border:1.5px solid #C4956A;}
+.chat-area{background:#E8E0D8;border-radius:8px;padding:8px 10px;
+  margin-bottom:7px;max-height:110px;overflow-y:auto;}
+.cmsg{font-size:11px;line-height:1.65;margin-bottom:2px;color:var(--tx);}
+.cmsg b{color:#4A3828;font-weight:700;}
+.chat-input-row{display:flex;gap:6px;}
+.chat-input-row input{flex:1;border:1.5px solid var(--bdr2);border-radius:8px;
+  padding:7px 10px;font-size:11px;outline:none;background:var(--card);
+  color:var(--tx);font-family:inherit;}
+
+/* MODAL */
+#modalOverlay{display:none;position:fixed;inset:0;background:rgba(28,16,6,.58);
+  z-index:500;align-items:center;justify-content:center;}
+#modalOverlay.on{display:flex;}
+.mbox{background:var(--card);border-radius:16px;padding:24px;width:100%;
+  max-width:420px;box-shadow:0 12px 40px rgba(80,40,20,.28);}
+.mtitle{font-size:15px;font-weight:700;color:var(--tx);margin-bottom:16px;text-align:center;}
+.mfield{margin-bottom:13px;}
+.mlabel{font-size:10px;color:var(--sub);letter-spacing:.5px;text-transform:uppercase;
+  margin-bottom:5px;display:block;font-weight:700;}
+.minput,.msel{width:100%;padding:10px 12px;border:1.5px solid var(--bdr2);
+  border-radius:9px;font-size:12px;background:#F5F0EB;color:var(--tx);
+  font-family:inherit;outline:none;}
+.lucky-res{background:var(--clay-p);border-radius:10px;padding:16px;text-align:center;
+  display:none;margin-bottom:12px;border:1.5px solid #C4956A;}
+.dur-row{display:flex;gap:6px;margin-bottom:14px;}
+.dur-c{flex:1;padding:8px;border-radius:9px;border:2px solid var(--bdr2);font-size:11px;
+  text-align:center;cursor:pointer;background:var(--card);color:var(--tx);
+  font-weight:600;transition:all .15s;}
+.dur-c.on{background:var(--clay-d);color:#FFF;border-color:var(--clay-d);}
+.info-row{display:flex;align-items:center;gap:8px;padding:8px 0;
+  border-bottom:1px solid #EDE7DF;font-size:12px;color:var(--tx);font-weight:500;}
+.info-row i{color:var(--muted);font-size:14px;width:16px;}
+.report-opt{display:flex;align-items:center;gap:8px;padding:9px 10px;
+  border:1.5px solid var(--bdr);border-radius:9px;margin-bottom:7px;cursor:pointer;
+  font-size:12px;color:var(--tx);font-weight:500;background:var(--card);transition:all .15s;}
+.report-opt.sel{border-color:var(--clay);background:var(--clay-p);
+  color:var(--clay-d);font-weight:700;}
+.mbtns{display:flex;gap:10px;margin-top:16px;}
+
+/* BUTTON HELPERS */
+.btn{padding:10px;border-radius:9px;font-size:12px;cursor:pointer;
+  font-family:inherit;font-weight:700;transition:opacity .15s;}
+.btn:hover{opacity:.88;}
+.btn-clay{background:var(--clay-d);color:#FFF;border:2px solid var(--clay-d);}
+.btn-slate{background:var(--slate);color:#FFF;border:2px solid var(--slate);}
+.btn-danger{background:#7A2020;color:#FFF;border:2px solid #7A2020;}
+.btn-outline{background:var(--card);color:var(--tx);border:2px solid var(--bdr2);}
+.btn-save{background:#4A6878;color:#FFF;border:2px solid #4A6878;}
+.btn-report{background:var(--card);color:#8A5030;border:2px solid #C8A080;padding:10px 12px;}
+.btn-full{width:100%;display:block;text-align:center;margin-bottom:8px;}
+.btn-sm{padding:5px 10px;font-size:10px;}
+
+/* LOADING */
+.loading{text-align:center;padding:40px 0;color:var(--muted);font-size:13px;}
+</style>
+</head>
+<body>
+
+<!-- ══ AUTH SCREEN ══════════════════════════════════ -->
+<div id="authWrap">
+  <div class="brand">
+    <span class="brand-emoji">🍜</span>
+    <div class="brand-name">欸！今天要吃啥</div>
+    <div class="brand-sub">中國醫藥大學 · 美食探索平台</div>
+  </div>
+  <div class="auth-card">
+    <div class="auth-tabs">
+      <div class="auth-tab on" onclick="switchAuth('login')">登 入</div>
+      <div class="auth-tab" onclick="switchAuth('register')">註 冊</div>
+    </div>
+
+    <!-- 登入 -->
+    <div id="formLogin" class="auth-form on">
+      <div class="lf"><label class="ll">學號（9碼）</label>
+        <input class="li" type="text" id="sid" maxlength="9" placeholder="輸入 9 位數學號"
+          onkeydown="if(event.key==='Enter')doLogin()"></div>
+      <div class="lf"><label class="ll">密碼</label>
+        <input class="li" type="password" id="spw" placeholder="••••••••"
+          onkeydown="if(event.key==='Enter')doLogin()"></div>
+      <button class="btn btn-clay btn-full" onclick="doLogin()">登 入</button>
+      <div class="auth-msg" id="loginMsg"></div>
+    </div>
+
+    <!-- 註冊 -->
+    <div id="formReg" class="auth-form">
+      <div class="form-row">
+        <div class="lf"><label class="ll">學號（9碼）</label>
+          <input class="li" type="text" id="rSid" maxlength="9" placeholder="9 位數學號"></div>
+        <div class="lf"><label class="ll">姓名</label>
+          <input class="li" type="text" id="rName" placeholder="真實姓名"></div>
+      </div>
+      <div class="form-row">
+        <div class="lf"><label class="ll">密碼</label>
+          <input class="li" type="password" id="rPw" placeholder="至少 4 位"></div>
+        <div class="lf"><label class="ll">確認密碼</label>
+          <input class="li" type="password" id="rPw2" placeholder="再輸入一次"></div>
+      </div>
+      <div class="lf"><label class="ll">系所</label>
+        <select class="lsel" id="rDept">
+          <option value="">請選擇系所</option>
+          <option>醫學系</option><option>醫檢生技系</option><option>放射科學系</option>
+          <option>中醫學系</option><option>學士後中醫</option><option>中藥暨資源系</option>
+          <option>藥學系</option><option>藥用化妝品系</option><option>公共衛生系</option>
+          <option>職業安全衛生系</option><option>醫務管理系</option><option>護理學系</option>
+          <option>物理治療系</option><option>運動醫學系</option><option>營養學系</option>
+          <option>牙醫學系</option><option>醫學工程系</option>
+        </select></div>
+      <div class="lf"><label class="ll">常用校區</label>
+        <select class="lsel" id="rCampus">
+          <option value="英才">英才校區</option>
+          <option value="水湳">水湳校區</option>
+        </select></div>
+      <button class="btn btn-slate btn-full" onclick="doRegister()">建立帳號</button>
+      <div class="auth-msg" id="regMsg"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN APP ═════════════════════════════════════ -->
+<div id="appWrap">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="logo">
+      <span class="logo-emoji">🍜</span>
+      <div class="logo-title">欸！今天要吃啥</div>
+      <div class="logo-sub">中國醫藥大學</div>
+    </div>
+    <div class="campus-box">
+      <div class="campus-label">選擇校區</div>
+      <button id="cb-英才" class="campus-btn on" onclick="setCampusByName('英才')">📍 英才校區</button>
+      <button id="cb-水湳" class="campus-btn off" onclick="setCampusByName('水湳')">📍 水湳校區</button>
+    </div>
+    <nav class="nav">
+      <div class="nav-item on" onclick="switchTab('nearby',this)">
+        <i class="ti ti-map-pin"></i>附近餐廳</div>
+      <div class="nav-item" onclick="switchTab('deals',this)">
+        <i class="ti ti-sparkles"></i>優惠報乎你知</div>
+      <div class="nav-item" onclick="switchTab('favorites',this)">
+        <i class="ti ti-heart"></i>收藏清單</div>
+      <div class="nav-item" onclick="switchTab('history',this)">
+        <i class="ti ti-clock"></i>歷史紀錄</div>
+      <div class="nav-item" onclick="switchTab('friends',this)">
+        <i class="ti ti-users"></i>揪團</div>
+    </nav>
+    <div class="lucky-side" onclick="openModal('lucky')">
+      <span class="lucky-side-icon">🎲</span>
+      <span class="lucky-side-label">今天沒想法 ></span>
+      <span class="lucky-side-sub">設條件幫你抽一間！</span>
+    </div>
+  </div>
+
+  <!-- Main content -->
+  <div class="main">
+    <!-- Topbar -->
+    <div class="topbar">
+      <div class="search-wrap">
+        <i class="ti ti-search"></i>
+        <input type="text" id="searchInput" placeholder="搜尋餐廳名稱、菜色…" oninput="applyFilters()">
+      </div>
+      <div class="user-pill" onclick="toggleAcct()">
+        <i class="ti ti-user-circle"></i>
+        <span id="topUserName">帳號</span>
+        <i class="ti ti-chevron-down" style="font-size:11px;color:var(--muted)"></i>
+      </div>
+      <!-- Account dropdown -->
+      <div id="acctDropdown">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+          <div class="acct-avatar">👤</div>
+          <div>
+            <div style="font-size:14px;font-weight:700;color:var(--tx)" id="acctName">—</div>
+            <div style="font-size:10px;color:var(--muted)" id="acctDept">—</div>
+            <div style="font-size:10px;color:var(--muted)" id="acctId">—</div>
+          </div>
+        </div>
+        <div style="background:#F5F0EB;border-radius:10px;padding:12px;margin-bottom:12px">
+          <div class="edit-row">
+            <span class="edit-label">名稱</span>
+            <input class="edit-input" type="text" id="editName" placeholder="顯示名稱">
+          </div>
+          <div class="edit-row" style="margin-bottom:0">
+            <span class="edit-label">校區</span>
+            <select class="edit-select" id="editCampus">
+              <option value="英才">英才校區</option>
+              <option value="水湳">水湳校區</option>
+            </select>
+          </div>
+        </div>
+        <button class="btn btn-save btn-full" onclick="saveAcct()" style="margin-bottom:8px">✓ 儲存變更</button>
+        <div class="acct-divider"></div>
+        <div style="font-size:11px;color:var(--tx);padding:4px 0;font-weight:500">
+          ❤️ 已收藏 <b id="favCount">0</b> 間 &nbsp;·&nbsp; 🕐 紀錄 <b id="histCount">0</b> 筆
+        </div>
+        <div class="acct-divider"></div>
+        <button class="btn btn-danger btn-full" onclick="doLogout()">⏻ 登 出</button>
+      </div>
+    </div>
+
+    <!-- ── NEARBY ── -->
+    <div class="page on" id="tab-nearby">
+      <div class="page-title">附近餐廳</div>
+      <div class="filter-bar">
+        <div class="fpill"><i class="ti ti-arrows-sort"></i>
+          <select id="sortSel" onchange="applyFilters()">
+            <option value="">距離排序</option>
+            <option value="rating">評分排序</option>
+            <option value="price">價格低→高</option>
+          </select>
+        </div>
+        <div class="fpill"><i class="ti ti-discount"></i>
+          <select id="stuSel" onchange="applyFilters()">
+            <option value="">所有餐廳</option>
+            <option value="stu">學生優惠</option>
+          </select>
+        </div>
+      </div>
+      <div class="chips">
+        <div class="chip on" onclick="setCat(this,'all')">全部</div>
+        <div class="chip" onclick="setCat(this,'日式')">🍱 日式</div>
+        <div class="chip" onclick="setCat(this,'台式')">🍲 台式</div>
+        <div class="chip" onclick="setCat(this,'西式')">🍝 西式</div>
+        <div class="chip" onclick="setCat(this,'健康餐')">🥗 健康餐</div>
+        <div class="chip" onclick="setCat(this,'飲料')">🧋 飲料</div>
+        <div class="chip" onclick="setCat(this,'火鍋')">🫕 火鍋</div>
+        <div class="chip" onclick="setCat(this,'海鮮')">🦐 海鮮</div>
+        <div class="chip" onclick="setCat(this,'中式')">🥟 中式</div>
+        <div class="chip" onclick="setCat(this,'輕食')">🥙 輕食</div>
+      </div>
+      <div class="rgrid" id="restGrid"><div class="loading">載入中…</div></div>
+    </div>
+
+    <!-- ── DEALS ── -->
+    <div class="page" id="tab-deals">
+      <div class="page-title">優惠報乎你知 ✨</div>
+      <div class="deal-tabs">
+        <div class="dtab on" onclick="switchDT('school',this)">🏫 全校性優惠</div>
+        <div class="dtab" onclick="switchDT('dept',this)">🔬 系所優惠</div>
+      </div>
+      <div id="dschool">
+        <div class="dcard">
+          <div class="dico" style="background:linear-gradient(135deg,#A06B52,#C4B5A0)">🎫</div>
+          <div>
+            <div style="font-size:13px;font-weight:700;color:var(--tx)">學生會特約商店</div>
+            <div style="font-size:11px;color:var(--sage);margin-top:3px;font-weight:600">持學生證享9折或指定優惠</div>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">共 23 間特約店家</div>
+          </div>
+        </div>
+        <div id="dealsList"></div>
+      </div>
+      <div id="ddept" style="display:none">
+        <p style="font-size:11px;color:var(--muted);margin-bottom:12px;font-weight:600">點選系所查看專屬優惠 👇</p>
+        <div class="dept-grid" id="deptGrid"></div>
+        <div id="deptRes" style="display:none;margin-top:14px">
+          <div class="dcard">
+            <div style="font-size:12px;color:var(--sub);font-weight:600" id="deptMsg"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── FAVORITES ── -->
+    <div class="page" id="tab-favorites">
+      <div class="page-title">❤️ 收藏清單</div>
+      <div id="favList"></div>
+    </div>
+
+    <!-- ── HISTORY ── -->
+    <div class="page" id="tab-history">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+        <div class="page-title" style="margin:0">🕐 歷史紀錄</div>
+        <button class="btn btn-outline" onclick="clearHistory()"
+          style="padding:5px 12px;font-size:11px">清除紀錄</button>
+      </div>
+      <div id="histList"></div>
+    </div>
+
+    <!-- ── FRIENDS / GROUPS ── -->
+    <div class="page" id="tab-friends">
+      <div class="page-title">揪團</div>
+      <div class="friends-layout">
+        <!-- Friends list -->
+        <div>
+          <div class="sec-lbl">好友列表</div>
+          <div id="friendList">
+            <div class="fc">
+              <div class="favt" style="background:var(--slate)"><i class="ti ti-user" style="font-size:14px"></i></div>
+              <div style="flex:1">
+                <div style="font-size:12px;color:var(--tx);font-weight:700">王小明</div>
+                <div style="font-size:10px;color:var(--muted)">醫學系 · 線上</div>
+              </div>
+              <button class="btn btn-sm btn-outline" onclick="inv('王小明')"
+                style="border-color:var(--clay);color:var(--clay-d);">邀揪團</button>
+            </div>
+            <div class="fc">
+              <div class="favt" style="background:var(--rose)"><i class="ti ti-user" style="font-size:14px"></i></div>
+              <div style="flex:1">
+                <div style="font-size:12px;color:var(--tx);font-weight:700">李小華</div>
+                <div style="font-size:10px;color:var(--muted)">藥學系 · 線上</div>
+              </div>
+              <button class="btn btn-sm btn-outline" onclick="inv('李小華')"
+                style="border-color:var(--clay);color:var(--clay-d);">邀揪團</button>
+            </div>
+          </div>
+          <button class="btn btn-slate btn-full" onclick="toggleAF()">＋ 新增好友</button>
+          <div class="af-panel" id="afPanel">
+            <div style="font-size:11px;font-weight:700;color:var(--tx);margin-bottom:8px">新增好友</div>
+            <input type="text" id="fname" placeholder="輸入學號或姓名搜尋">
+            <div style="display:flex;gap:7px">
+              <button class="btn btn-outline" style="flex:1;padding:7px;font-size:11px"
+                onclick="cancelAF()">取消</button>
+              <button class="btn btn-slate" style="flex:1;padding:7px;font-size:11px"
+                onclick="confirmAF()">送出邀請</button>
+            </div>
+          </div>
+        </div>
+        <!-- Groups -->
+        <div>
+          <div class="sec-lbl">臨時揪團
+            <span style="font-size:9px;color:var(--rose);background:var(--clay-p);
+              padding:2px 7px;border-radius:7px;margin-left:4px;font-weight:700">限時自動解散</span>
+          </div>
+          <p style="font-size:10px;color:var(--muted);margin-bottom:10px;line-height:1.6">
+            每次吃飯重建新揪團，聊完即散 🌿
+          </p>
+          <div id="groupList">
+            <div class="empty-state"><div>🍽</div>
+              <p>還沒有揪團<br>快建立一個吧！</p></div>
+          </div>
+          <button class="btn btn-clay btn-full" onclick="openModal('cg')">＋ 建立新揪團</button>
+        </div>
+      </div>
+    </div>
+  </div><!-- /.main -->
+</div><!-- /#appWrap -->
+
+<!-- ══ MODALS ════════════════════════════════════════ -->
+<div id="modalOverlay" onclick="if(event.target===this)closeModal()">
+
+  <!-- Lucky Draw -->
+  <div class="mbox" id="mLucky" style="display:none">
+    <div class="mtitle">今天沒想法 🎲</div>
+    <div class="mfield">
+      <label class="mlabel">💰 預算範圍</label>
+      <select class="msel" id="lBudget">
+        <option value="">不限預算</option>
+        <option value="0,100">100 元以下</option>
+        <option value="100,200">100 ~ 200 元</option>
+        <option value="200,300">200 ~ 300 元</option>
+        <option value="300,500">300 ~ 500 元</option>
+        <option value="500,9999">500 元以上</option>
+      </select>
+    </div>
+    <div class="mfield">
+      <label class="mlabel">🍽 口味偏好</label>
+      <select class="msel" id="lCat">
+        <option value="">不限口味</option>
+        <option value="日式">🍱 日式</option>
+        <option value="台式">🍲 台式</option>
+        <option value="西式">🍝 西式</option>
+        <option value="健康餐">🥗 健康餐</option>
+        <option value="飲料">🧋 飲料</option>
+        <option value="火鍋">🫕 火鍋</option>
+        <option value="海鮮">🦐 海鮮</option>
+      </select>
+    </div>
+    <div class="lucky-res" id="luckyRes">
+      <div style="font-size:44px;margin-bottom:8px" id="lEmoji">🍜</div>
+      <div style="font-size:18px;font-weight:700;color:var(--tx)" id="lName">—</div>
+      <div style="font-size:11px;color:var(--sub);margin-top:4px;font-weight:600" id="lTag">—</div>
+    </div>
+    <div class="mbtns">
+      <button class="btn btn-outline" style="flex:1" onclick="closeModal()">關閉</button>
+      <button class="btn btn-clay" style="flex:1" onclick="spinLucky()">幫我抽！</button>
+    </div>
+  </div>
+
+  <!-- Restaurant Info -->
+  <div class="mbox" id="mInfo" style="display:none">
+    <div style="display:flex;gap:14px;align-items:center;margin-bottom:14px">
+      <div id="mIcon" style="width:56px;height:56px;border-radius:14px;display:flex;
+        align-items:center;justify-content:center;font-size:30px;flex-shrink:0"></div>
+      <div style="flex:1">
+        <div style="display:flex;align-items:center;gap:8px">
+          <div style="font-size:16px;font-weight:700;color:var(--tx)" id="mName"></div>
+          <button id="mFavBtn" onclick="toggleFav()"
+            style="background:none;border:none;cursor:pointer;font-size:22px;padding:0;line-height:1">🤍</button>
+        </div>
+        <div style="font-size:11px;color:var(--clay);margin-top:2px;font-weight:700" id="mCat"></div>
+        <div style="font-size:11px;color:var(--muted);font-weight:500" id="mDist"></div>
+      </div>
+    </div>
+    <div style="border-top:1px solid #EDE7DF;padding-top:10px">
+      <div class="info-row"><i class="ti ti-clock"></i><span id="mHours"></span></div>
+      <div class="info-row"><i class="ti ti-currency-dollar"></i><span id="mPrice"></span></div>
+      <div class="info-row"><i class="ti ti-map-pin"></i><span id="mAddr"></span></div>
+      <div class="info-row" style="border:none"><i class="ti ti-star"></i><span id="mRating"></span></div>
+    </div>
+    <div id="mDealBox" style="background:var(--clay-p);border-radius:9px;padding:10px 12px;
+      margin-top:10px;font-size:12px;color:var(--clay-d);font-weight:700;display:none;
+      border:1.5px solid #C4956A"></div>
+    <div class="mbtns">
+      <button class="btn btn-outline" style="flex:1" onclick="closeModal()">關閉</button>
+      <button class="btn btn-slate" style="flex:1" onclick="openGoogleMap()">📍 Google Maps</button>
+      <button class="btn btn-report" onclick="openReport()" title="回報問題">⚠️</button>
+    </div>
+  </div>
+
+  <!-- Report -->
+  <div class="mbox" id="mReport" style="display:none">
+    <div class="mtitle">⚠️ 回報資料問題</div>
+    <div style="font-size:12px;color:var(--sub);margin-bottom:14px;font-weight:500"
+      id="reportRestName"></div>
+    <div class="mfield">
+      <label class="mlabel">問題類型</label>
+      <div class="report-opt" onclick="selReport(this,'店家已歇業')">
+        <i class="ti ti-x" style="color:var(--muted);font-size:15px;width:18px"></i>店家已歇業</div>
+      <div class="report-opt" onclick="selReport(this,'營業時間有誤')">
+        <i class="ti ti-clock" style="color:var(--muted);font-size:15px;width:18px"></i>營業時間有誤</div>
+      <div class="report-opt" onclick="selReport(this,'優惠資訊已過期或有誤')">
+        <i class="ti ti-discount" style="color:var(--muted);font-size:15px;width:18px"></i>優惠資訊已過期或有誤</div>
+      <div class="report-opt" onclick="selReport(this,'價格資訊有誤')">
+        <i class="ti ti-currency-dollar" style="color:var(--muted);font-size:15px;width:18px"></i>價格資訊有誤</div>
+      <div class="report-opt" onclick="selReport(this,'其他問題')">
+        <i class="ti ti-message" style="color:var(--muted);font-size:15px;width:18px"></i>其他問題</div>
+    </div>
+    <div class="mfield">
+      <label class="mlabel">補充說明（選填）</label>
+      <textarea class="minput" id="reportNote" rows="3" placeholder="例如：正確的營業時間是…"
+        style="resize:none;line-height:1.6"></textarea>
+    </div>
+    <div class="mbtns">
+      <button class="btn btn-outline" style="flex:1" onclick="openModal('info')">返回</button>
+      <button class="btn" style="flex:1;background:#8A5030;color:#FFF;border:2px solid #8A5030"
+        onclick="submitReport()">送出回報</button>
+    </div>
+  </div>
+
+  <!-- Create Group -->
+  <div class="mbox" id="mCG" style="display:none">
+    <div class="mtitle">建立臨時揪團 🍽</div>
+    <div class="mfield">
+      <label class="mlabel">揪團名稱</label>
+      <input class="minput" type="text" id="gname" placeholder="今天午餐吃啥～">
+    </div>
+    <div class="mfield">
+      <label class="mlabel">想去的餐廳（可選）</label>
+      <input class="minput" type="text" id="grest" placeholder="佐原拉麵">
+    </div>
+    <div class="mfield">
+      <label class="mlabel">揪團時效</label>
+      <div class="dur-row">
+        <div class="dur-c" id="d1" onclick="setDur(1)">1 小時</div>
+        <div class="dur-c on" id="d2" onclick="setDur(2)">2 小時</div>
+        <div class="dur-c" id="d3" onclick="setDur(3)">3 小時</div>
+      </div>
+    </div>
+    <div class="mbtns">
+      <button class="btn btn-outline" style="flex:1" onclick="closeModal()">取消</button>
+      <button class="btn btn-clay" style="flex:1" onclick="createGroup()">建立揪團</button>
+    </div>
+  </div>
+
+</div><!-- /#modalOverlay -->
+
+<script>
+// ═══════════════════════════════════════
+//  資料 & 狀態
+// ═══════════════════════════════════════
+const CAT_GRAD={
+  "日式":"#C4B49A,#A89880","台式":"#C9A8A8,#B89090",
+  "西式":"#9DAFBD,#8A9BAA","健康餐":"#A8B8A0,#96A890",
+  "飲料":"#D4B5B0,#C0A0A0","火鍋":"#C4956A,#B08058",
+  "中式":"#B5A090,#A09080","海鮮":"#9DAFBD,#8A9CB0",
+  "輕食":"#C4B49A,#A89880"
+};
+const DEPTS=[
+  '醫學系','醫檢生技系','放射科學系','中醫學系','學士後中醫',
+  '中藥暨資源系','藥學系','藥用化妝品系','公共衛生系',
+  '職業安全衛生系','醫務管理系','護理學系','物理治療系',
+  '運動醫學系','營養學系','牙醫學系','醫學工程系'
+];
+
+let ALL_REST=[];          // 從 server 取回的完整餐廳資料
+let campus='英才';
+let curCat='all';
+let currentUser={id:'',name:'',dept:'',campus:'英才'};
+let currentRestId=null;
+let favorites=new Set();
+let historyData=[];
+let selectedReportType='';
+
+// ═══════════════════════════════════════
+//  AUTH
+// ═══════════════════════════════════════
+function switchAuth(mode){
+  document.querySelectorAll('.auth-tab').forEach((t,i)=>
+    t.classList.toggle('on',['login','register'][i]===mode));
+  document.getElementById('formLogin').classList.toggle('on',mode==='login');
+  document.getElementById('formReg').classList.toggle('on',mode==='register');
+  document.getElementById('loginMsg').textContent='';
+  document.getElementById('regMsg').textContent='';
+}
+
+async function doLogin(){
+  const sid=document.getElementById('sid').value.trim();
+  const pw =document.getElementById('spw').value;
+  const msg=document.getElementById('loginMsg');
+  if(!sid||!pw){msg.style.color='#C04030';msg.textContent='⚠️ 請填寫學號與密碼';return;}
+  try{
+    const res=await fetch('/api/login',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({sid,password:pw})
+    });
+    const data=await res.json();
+    if(data.success){
+      currentUser={id:data.user.sid,name:data.user.name,
+        dept:data.user.dept,campus:data.user.campus};
+      loadLocalData();
+      enterApp();
+    } else {
+      msg.style.color='#C04030';msg.textContent='⚠️ '+data.message;
+    }
+  }catch(e){msg.style.color='#C04030';msg.textContent='⚠️ 無法連線，請確認伺服器是否啟動';}
+}
+
+async function doRegister(){
+  const sid=document.getElementById('rSid').value.trim();
+  const name=document.getElementById('rName').value.trim();
+  const pw  =document.getElementById('rPw').value;
+  const pw2 =document.getElementById('rPw2').value;
+  const dept=document.getElementById('rDept').value;
+  const rc  =document.getElementById('rCampus').value;
+  const msg =document.getElementById('regMsg');
+  if(pw!==pw2){msg.style.color='#C04030';msg.textContent='⚠️ 兩次密碼不相符';return;}
+  try{
+    const res=await fetch('/api/register',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({sid,name,password:pw,dept,campus:rc})
+    });
+    const data=await res.json();
+    if(data.success){
+      msg.style.color='#4A6E46';msg.textContent='✅ 帳號建立成功，請登入！';
+      setTimeout(()=>switchAuth('login'),1200);
+    } else {
+      msg.style.color='#C04030';msg.textContent='⚠️ '+data.message;
+    }
+  }catch(e){msg.style.color='#C04030';msg.textContent='⚠️ 無法連線，請確認伺服器是否啟動';}
+}
+
+function enterApp(){
+  const aw=document.getElementById('authWrap');
+  aw.style.transition='opacity .35s';aw.style.opacity='0';
+  setTimeout(()=>{
+    aw.style.display='none';
+    document.getElementById('appWrap').style.display='flex';
+    setCampusByName(currentUser.campus||campus);
+    syncUserUI();
+    fetchRestaurants();
+    renderDeals();
+    buildDeptGrid();
+  },340);
+}
+
+function doLogout(){
+  closeAcct();
+  document.getElementById('appWrap').style.display='none';
+  const aw=document.getElementById('authWrap');
+  aw.style.display='flex';aw.style.opacity='0';
+  document.getElementById('sid').value='';
+  document.getElementById('spw').value='';
+  favorites=new Set();historyData=[];
+  setTimeout(()=>{aw.style.transition='opacity .35s';aw.style.opacity='1';},20);
+}
+
+// ═══════════════════════════════════════
+//  LOCAL STORAGE (收藏 & 歷史)
+// ═══════════════════════════════════════
+function lsKey(k){return `ewt_${currentUser.id}_${k}`;}
+function loadLocalData(){
+  try{const f=localStorage.getItem(lsKey('fav'));if(f)favorites=new Set(JSON.parse(f));}catch(e){}
+  try{const h=localStorage.getItem(lsKey('hist'));if(h)historyData=JSON.parse(h);}catch(e){}
+}
+function saveFav(){try{localStorage.setItem(lsKey('fav'),JSON.stringify([...favorites]));}catch(e){}}
+function saveHist(){try{localStorage.setItem(lsKey('hist'),JSON.stringify(historyData));}catch(e){}}
+
+function updateCounts(){
+  document.getElementById('favCount').textContent=favorites.size;
+  document.getElementById('histCount').textContent=historyData.length;
+}
+
+// ═══════════════════════════════════════
+//  ACCOUNT
+// ═══════════════════════════════════════
+function syncUserUI(){
+  document.getElementById('topUserName').textContent=currentUser.name;
+  document.getElementById('acctName').textContent=currentUser.name;
+  document.getElementById('acctDept').textContent=currentUser.dept||'—';
+  document.getElementById('acctId').textContent='學號：'+currentUser.id;
+  document.getElementById('editName').value=currentUser.name;
+  document.getElementById('editCampus').value=campus;
+  updateCounts();
+}
+function toggleAcct(){document.getElementById('acctDropdown').classList.toggle('on');}
+function closeAcct(){document.getElementById('acctDropdown').classList.remove('on');}
+document.addEventListener('click',e=>{if(!e.target.closest('.topbar'))closeAcct();});
+function saveAcct(){
+  const n=document.getElementById('editName').value.trim()||currentUser.name;
+  const c=document.getElementById('editCampus').value;
+  currentUser.name=n;
+  syncUserUI();
+  if(c!==campus) setCampusByName(c);
+  closeAcct();
+}
+
+// ═══════════════════════════════════════
+//  CAMPUS
+// ═══════════════════════════════════════
+function setCampusByName(c){
+  campus=c;
+  ['英才','水湳'].forEach(n=>{
+    const btn=document.getElementById('cb-'+n);
+    btn.className='campus-btn '+(n===c?'on':'off');
+  });
+  if(document.getElementById('editCampus'))
+    document.getElementById('editCampus').value=c;
+  fetchRestaurants();
+}
+
+// ═══════════════════════════════════════
+//  FETCH RESTAURANTS FROM SERVER
+// ═══════════════════════════════════════
+async function fetchRestaurants(){
+  document.getElementById('restGrid').innerHTML='<div class="loading">載入中…</div>';
+  try{
+    const res=await fetch('/api/restaurants?campus='+encodeURIComponent(campus));
+    ALL_REST=await res.json();
+    applyFilters();
+    renderDeals();
+  }catch(e){
+    document.getElementById('restGrid').innerHTML=
+      '<div class="loading">⚠️ 無法載入餐廳資料</div>';
+  }
+}
+
+// ═══════════════════════════════════════
+//  FILTERS & GRID
+// ═══════════════════════════════════════
+function setCat(el,cat){
+  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));
+  el.classList.add('on');curCat=cat;applyFilters();
+}
+function applyFilters(){
+  const q   =document.getElementById('searchInput').value.toLowerCase();
+  const sort=document.getElementById('sortSel').value;
+  const sf  =document.getElementById('stuSel').value;
+  let d=[...ALL_REST];
+  if(curCat!=='all') d=d.filter(r=>r.category===curCat);
+  if(q) d=d.filter(r=>r.name.toLowerCase().includes(q)||r.category.includes(q)||
+    (r.tags&&r.tags.some(t=>t.includes(q))));
+  if(sf==='stu') d=d.filter(r=>r.student_discount);
+  if(sort==='rating') d.sort((a,b)=>b.rating-a.rating);
+  else if(sort==='price') d.sort((a,b)=>a.avg_price-b.avg_price);
+  else d.sort((a,b)=>a.dist-b.dist);
+  renderGrid(d);
+}
+function renderGrid(data){
+  const g=document.getElementById('restGrid');
+  if(!data.length){
+    g.innerHTML='<div class="loading">😅 找不到符合的餐廳</div>';return;
+  }
+  g.innerHTML=data.map(r=>`
+    <div class="rcard" onclick="openInfo(${r.id})">
+      <div class="rimg" style="background:linear-gradient(135deg,${CAT_GRAD[r.category]||'#C4B49A,#A89880'})">
+        ${r.emoji}
+        ${r.student_discount?'<span class="rbdg">優惠</span>':''}
+        <span class="rdbdg">${r.dist}m</span>
+      </div>
+      <button class="fav-btn" onclick="event.stopPropagation();quickFav(${r.id},this)">
+        ${favorites.has(r.id)?'❤️':'🤍'}
+      </button>
+      <div class="rinfo">
+        <div class="rname">${r.name}</div>
+        <div class="rmeta">
+          <span style="color:#A06B52;font-weight:700">★</span>
+          <span style="font-weight:700;color:#5A5048">${r.rating}</span>&nbsp;·&nbsp;
+          ${r.open
+            ?'<span class="rdot"></span><span style="color:#3A6038;font-weight:600"> 營業中</span>'
+            :'<span style="color:#8B4040;font-weight:600">休息中</span>'}
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+// ═══════════════════════════════════════
+//  RESTAURANT INFO MODAL
+// ═══════════════════════════════════════
+function openInfo(id){
+  currentRestId=id;
+  const r=ALL_REST.find(x=>x.id===id);
+  if(!r) return;
+
+  // 加入歷史紀錄
+  historyData=historyData.filter(h=>h.id!==id);
+  historyData.unshift({
+    id,name:r.name,emoji:r.emoji,category:r.category,
+    dist:r.dist,rating:r.rating,
+    time:new Date().toLocaleString('zh-TW',
+      {month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'})
+  });
+  if(historyData.length>30) historyData=historyData.slice(0,30);
+  saveHist();updateCounts();
+
+  // 填入 modal
+  document.getElementById('mIcon').textContent=r.emoji;
+  document.getElementById('mIcon').style.background=
+    `linear-gradient(135deg,${CAT_GRAD[r.category]||'#C4B49A,#A89880'})`;
+  document.getElementById('mName').textContent=r.name;
+  document.getElementById('mCat').textContent=r.category;
+  document.getElementById('mDist').textContent=`距 ${campus} 校區 ${r.dist}m`;
+  document.getElementById('mHours').textContent=r.hours_display||'—';
+  document.getElementById('mPrice').textContent=`平均消費約 ${r.avg_price} 元`;
+  document.getElementById('mAddr').textContent=r.address||'—';
+  document.getElementById('mRating').textContent=
+    `⭐ ${r.rating}（${r.rating_count} 則評論）`;
+  document.getElementById('mFavBtn').textContent=favorites.has(id)?'❤️':'🤍';
+  const db=document.getElementById('mDealBox');
+  if(r.student_discount){
+    db.style.display='block';
+    db.textContent='✨ '+r.discount_detail;
+  } else db.style.display='none';
+
+  openModal('info');
+}
+function openGoogleMap(){
+  const r=ALL_REST.find(x=>x.id===currentRestId);
+  if(!r) return;
+  window.open(`https://www.google.com/maps?q=${r.lat},${r.lng}&z=18`,'_blank');
+}
+
+// ═══════════════════════════════════════
+//  FAVORITES
+// ═══════════════════════════════════════
+function toggleFav(){
+  if(!currentRestId) return;
+  favorites.has(currentRestId)?favorites.delete(currentRestId):favorites.add(currentRestId);
+  document.getElementById('mFavBtn').textContent=favorites.has(currentRestId)?'❤️':'🤍';
+  saveFav();updateCounts();applyFilters();
+  if(document.getElementById('tab-favorites').classList.contains('on')) renderFavorites();
+}
+function quickFav(id,btn){
+  favorites.has(id)?(favorites.delete(id),btn.textContent='🤍'):(favorites.add(id),btn.textContent='❤️');
+  saveFav();updateCounts();
+}
+function renderFavorites(){
+  const fl=document.getElementById('favList');
+  const data=ALL_REST.filter(r=>favorites.has(r.id));
+  if(!data.length){
+    fl.innerHTML='<div class="empty-state"><div>🤍</div><p>還沒有收藏的餐廳<br>點餐廳卡片左上角的 ♡ 加入收藏</p></div>';
+    return;
+  }
+  fl.innerHTML=data.map(r=>`
+    <div class="hcard" onclick="openInfo(${r.id})">
+      <div class="hico" style="background:linear-gradient(135deg,${CAT_GRAD[r.category]||'#C4B49A,#A89880'})">${r.emoji}</div>
+      <div style="flex:1">
+        <div style="font-size:13px;font-weight:700;color:var(--tx)">${r.name}</div>
+        <div style="font-size:11px;color:var(--sub);margin-top:2px;font-weight:500">
+          ${r.category} · 約${r.avg_price}元 · ⭐${r.rating}</div>
+      </div>
+      <button onclick="event.stopPropagation();removeFav(${r.id})"
+        class="btn btn-outline btn-sm">移除</button>
+    </div>`).join('');
+}
+function removeFav(id){favorites.delete(id);saveFav();updateCounts();renderFavorites();}
+
+// ═══════════════════════════════════════
+//  HISTORY
+// ═══════════════════════════════════════
+function renderHistory(){
+  const hl=document.getElementById('histList');
+  if(!historyData.length){
+    hl.innerHTML='<div class="empty-state"><div>🕐</div><p>還沒有瀏覽記錄<br>點開餐廳資訊就會記錄在這裡</p></div>';
+    return;
+  }
+  hl.innerHTML=historyData.map(h=>`
+    <div class="hcard" onclick="openInfo(${h.id})">
+      <div class="hico" style="background:linear-gradient(135deg,${CAT_GRAD[h.category]||'#C4B49A,#A89880'})">${h.emoji}</div>
+      <div style="flex:1">
+        <div style="font-size:13px;font-weight:700;color:var(--tx)">${h.name}</div>
+        <div style="font-size:11px;color:var(--sub);margin-top:2px;font-weight:500">${h.category} · ⭐${h.rating}</div>
+      </div>
+      <div style="font-size:10px;color:var(--muted);text-align:right;font-weight:500;flex-shrink:0">${h.time}</div>
+    </div>`).join('');
+}
+function clearHistory(){
+  if(!confirm('確定要清除所有歷史紀錄嗎？')) return;
+  historyData=[];saveHist();updateCounts();renderHistory();
+}
+
+// ═══════════════════════════════════════
+//  DEALS
+// ═══════════════════════════════════════
+function renderDeals(){
+  const data=ALL_REST.filter(r=>r.student_discount);
+  document.getElementById('dealsList').innerHTML=data.map(r=>`
+    <div class="dcard" onclick="openInfo(${r.id})">
+      <div class="dico" style="background:linear-gradient(135deg,${CAT_GRAD[r.category]||'#C4B49A,#A89880'})">${r.emoji}</div>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:var(--tx)">${r.name}</div>
+        <div style="font-size:11px;color:var(--sage);margin-top:3px;font-weight:600">${r.discount_detail}</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:2px">${r.dist}m · ⭐${r.rating}</div>
+      </div>
+    </div>`).join('');
+}
+function switchDT(type,el){
+  document.querySelectorAll('.dtab').forEach(t=>t.classList.remove('on'));
+  el.classList.add('on');
+  document.getElementById('dschool').style.display=type==='school'?'block':'none';
+  document.getElementById('ddept').style.display=type==='dept'?'block':'none';
+}
+function buildDeptGrid(){
+  document.getElementById('deptGrid').innerHTML=DEPTS.map(d=>
+    `<div class="dept-item" onclick="deptClick(this,'${d}')">${d}</div>`
+  ).join('');
+}
+function deptClick(el,dept){
+  document.querySelectorAll('.dept-item').forEach(d=>d.classList.remove('sel'));
+  el.classList.add('sel');
+  document.getElementById('deptMsg').textContent=
+    `${dept} 目前尚未登錄專屬優惠，歡迎系學會聯繫合作 🤝`;
+  document.getElementById('deptRes').style.display='block';
+}
+
+// ═══════════════════════════════════════
+//  TABS
+// ═══════════════════════════════════════
+function switchTab(t,el){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+  document.getElementById('tab-'+t).classList.add('on');
+  document.querySelectorAll('.nav-item').forEach(e=>e.classList.remove('on'));
+  el.classList.add('on');
+  if(t==='favorites') renderFavorites();
+  if(t==='history')   renderHistory();
+}
+
+// ═══════════════════════════════════════
+//  MODAL
+// ═══════════════════════════════════════
+function openModal(type){
+  ['mLucky','mCG','mInfo','mReport'].forEach(id=>
+    document.getElementById(id).style.display='none');
+  const map={lucky:'mLucky',cg:'mCG',info:'mInfo',report:'mReport'};
+  const p=document.getElementById(map[type]);
+  if(!p) return;
+  if(type==='lucky') document.getElementById('luckyRes').style.display='none';
+  p.style.display='block';
+  document.getElementById('modalOverlay').classList.add('on');
+}
+function closeModal(){document.getElementById('modalOverlay').classList.remove('on');}
+
+// ═══════════════════════════════════════
+//  LUCKY DRAW
+// ═══════════════════════════════════════
+function spinLucky(){
+  const bv=document.getElementById('lBudget').value;
+  const c =document.getElementById('lCat').value;
+  let pool=[...ALL_REST];
+  if(bv){const[mn,mx]=bv.split(',').map(Number);pool=pool.filter(r=>r.avg_price>=mn&&r.avg_price<=mx);}
+  if(c) pool=pool.filter(r=>r.category===c);
+  const res=document.getElementById('luckyRes');
+  res.style.display='block';
+  if(!pool.length){
+    document.getElementById('lEmoji').textContent='😢';
+    document.getElementById('lName').textContent='找不到符合的餐廳';
+    document.getElementById('lTag').textContent='請放寬條件再試試';
+    return;
+  }
+  const r=pool[Math.floor(Math.random()*pool.length)];
+  document.getElementById('lEmoji').textContent=r.emoji;
+  document.getElementById('lName').textContent=r.name;
+  document.getElementById('lTag').textContent=`${r.category} · 約${r.avg_price}元 · ${r.dist}m`;
+}
+
+// ═══════════════════════════════════════
+//  REPORT
+// ═══════════════════════════════════════
+function openReport(){
+  selectedReportType='';
+  document.querySelectorAll('.report-opt').forEach(o=>o.classList.remove('sel'));
+  document.getElementById('reportNote').value='';
+  const r=ALL_REST.find(x=>x.id===currentRestId);
+  document.getElementById('reportRestName').textContent=
+    r?`針對「${r.name}」的回報`:'';
+  openModal('report');
+}
+function selReport(el,type){
+  document.querySelectorAll('.report-opt').forEach(o=>o.classList.remove('sel'));
+  el.classList.add('sel');selectedReportType=type;
+}
+async function submitReport(){
+  if(!selectedReportType){alert('請選擇問題類型');return;}
+  const r=ALL_REST.find(x=>x.id===currentRestId);
+  try{
+    await fetch('/api/report',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        restId:currentRestId,restName:r?.name,
+        type:selectedReportType,
+        note:document.getElementById('reportNote').value.trim(),
+        reporterSid:currentUser.id
+      })
+    });
+    alert(`謝謝你的回報！\n${r?.name} — ${selectedReportType}\n我們會盡快確認更新 🙏`);
+    openModal('info');
+  }catch(e){alert('送出失敗，請稍後再試');}
+}
+
+// ═══════════════════════════════════════
+//  FRIENDS / GROUPS
+// ═══════════════════════════════════════
+function inv(n){alert(`已邀請 ${n} 加入揪團！`);}
+function toggleAF(){
+  const p=document.getElementById('afPanel');
+  p.style.display=p.style.display==='block'?'none':'block';
+  if(p.style.display==='block') document.getElementById('fname').focus();
+}
+function cancelAF(){
+  document.getElementById('afPanel').style.display='none';
+  document.getElementById('fname').value='';
+}
+function confirmAF(){
+  const n=document.getElementById('fname').value.trim();
+  if(!n){document.getElementById('fname').focus();return;}
+  const colors=['var(--slate)','var(--sage)','var(--rose)','var(--clay)'];
+  const c=colors[Math.floor(Math.random()*colors.length)];
+  const div=document.createElement('div');div.className='fc';
+  div.innerHTML=`
+    <div class="favt" style="background:${c}"><i class="ti ti-user" style="font-size:14px"></i></div>
+    <div style="flex:1">
+      <div style="font-size:12px;color:var(--tx);font-weight:700">${n}</div>
+      <div style="font-size:10px;color:var(--muted)">邀請已送出</div>
+    </div>
+    <span style="font-size:10px;color:var(--clay-d);background:var(--clay-p);
+      padding:3px 9px;border-radius:7px;font-weight:700;border:1.5px solid #C4956A">待確認</span>`;
+  document.getElementById('friendList').appendChild(div);
+  cancelAF();
+}
+
+let groups=[],selDur=2,timers={};
+function setDur(h){
+  selDur=h;
+  [1,2,3].forEach(n=>{
+    const e=document.getElementById('d'+n);
+    if(e) e.classList.toggle('on',n===h);
+  });
+}
+function createGroup(){
+  const name=document.getElementById('gname').value.trim()||'今天午餐吃啥';
+  const rest=document.getElementById('grest').value.trim();
+  const id='g'+Date.now();
+  groups.unshift({
+    id,name,rest,
+    exp:Date.now()+selDur*3600000,
+    msgs:[{u:'系統',t:`「${name}」已建立，${selDur}小時後自動解散 🌿`}]
+  });
+  document.getElementById('gname').value='';
+  document.getElementById('grest').value='';
+  closeModal();renderGroups();
+}
+function renderGroups(){
+  const gl=document.getElementById('groupList');
+  if(!groups.length){
+    gl.innerHTML='<div class="empty-state"><div>🍽</div><p>還沒有揪團<br>快建立一個吧！</p></div>';
+    return;
+  }
+  gl.innerHTML=groups.map(g=>{
+    const alive=Date.now()<g.exp;
+    return`<div class="gc">
+      <div class="gc-hdr">
+        <div>
+          <div class="gc-name">🍽 ${g.name}</div>
+          ${g.rest?`<div style="font-size:10px;color:var(--muted);margin-top:2px">想去：${g.rest}</div>`:''}
+        </div>
+        ${alive
+          ?`<div class="timer" id="t-${g.id}">--:--:--</div>`
+          :'<span style="background:#9A7070;color:#FFF;font-size:9px;font-weight:700;padding:3px 9px;border-radius:7px">已解散</span>'}
+      </div>
+      <div style="font-size:10px;color:var(--muted);margin-bottom:8px">成員：你、王小明</div>
+      ${alive?`
+        <div class="chat-area" id="chat-${g.id}">
+          ${g.msgs.map(m=>`<div class="cmsg"><b>${m.u}：</b>${m.t}</div>`).join('')}
+        </div>
+        <div class="chat-input-row">
+          <input type="text" placeholder="輸入訊息…" id="mi-${g.id}"
+            onkeydown="if(event.key==='Enter')sendMsg('${g.id}')">
+          <button class="btn btn-clay btn-sm" onclick="sendMsg('${g.id}')">送出</button>
+        </div>`
+      :'<div style="font-size:11px;color:var(--muted);margin-top:4px">已解散，重新建立一個吧！</div>'}
+    </div>`;
+  }).join('');
+  groups.forEach(g=>{
+    if(timers[g.id]) clearInterval(timers[g.id]);
+    if(Date.now()<g.exp){
+      timers[g.id]=setInterval(()=>tick(g.id,g.exp),1000);
+      tick(g.id,g.exp);
+    }
+  });
+}
+function tick(id,exp){
+  const el=document.getElementById('t-'+id);
+  if(!el){clearInterval(timers[id]);return;}
+  const rem=Math.max(0,exp-Date.now());
+  const h=String(Math.floor(rem/3600000)).padStart(2,'0');
+  const m=String(Math.floor(rem%3600000/60000)).padStart(2,'0');
+  const s=String(Math.floor(rem%60000/1000)).padStart(2,'0');
+  el.textContent=`${h}:${m}:${s}`;
+  if(rem<=0){clearInterval(timers[id]);renderGroups();}
+}
+function sendMsg(gid){
+  const inp=document.getElementById('mi-'+gid);
+  if(!inp||!inp.value.trim()) return;
+  const g=groups.find(x=>x.id===gid);
+  if(g){g.msgs.push({u:currentUser.name||'我',t:inp.value.trim()});inp.value='';}
+  const ca=document.getElementById('chat-'+gid);
+  if(ca&&g){
+    ca.innerHTML=g.msgs.map(m=>`<div class="cmsg"><b>${m.u}：</b>${m.t}</div>`).join('');
+    ca.scrollTop=ca.scrollHeight;
+  }
+}
+</script>
+</body>
+</html>
