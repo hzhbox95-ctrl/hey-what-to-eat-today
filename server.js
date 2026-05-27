@@ -52,7 +52,7 @@ app.post('/api/report', (req, res) => {
 });
 
 // 所有其他路徑都回傳 index.html
-app.get('*', (req, res) => {
+app.use((req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
