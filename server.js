@@ -13,8 +13,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // ── API：取得餐廳列表 ──
 app.get('/api/restaurants', (req, res) => {
+  const campus = req.query.campus;
+
   const data = fs.readFileSync('./data/restaurants.json', 'utf8');
-  res.json(JSON.parse(data));
+  const restaurants = JSON.parse(data);
+
+  const filtered = campus
+    ? restaurants.filter(r => r.campus.includes(campus))
+    : restaurants;
+
+  res.json(filtered);
 });
 
 // ── API：登入 ──
