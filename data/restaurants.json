@@ -433,5 +433,880 @@
     "student_discount": false,
     "discount_detail": null,
     "open": true
+  },
+  {
+    "id": 16,
+    "name": "路義思小館",
+    "campus": [
+      "英才"
+    ],
+    "category": "義式",
+    "emoji": "🍝",
+    "dist": 19,
+    "avg_price": 280,
+    "rating": 4.6,
+    "rating_count": 562,
+    "address": "台中市北區五常街192號",
+    "lat": 24.1596905,
+    "lng": 120.6800448,
+    "phone": "04-2203-9146",
+    "hours": {
+      "mon": "11:30-14:30",
+      "tue": null,
+      "wed": "11:30-14:30",
+      "thu": "11:30-14:30",
+      "fri": "11:30-14:30",
+      "sat": "11:30-14:30",
+      "sun": "11:30-14:30"
+    },
+    "hours_display": "11:30–14:30、17:00–20:30（週二公休）",
+    "tags": [
+      "窯烤披薩",
+      "義大利麵",
+      "素食"
+    ],
+    "student_discount": false,
+    "discount_detail": null,
+    "open": true
+  },
+  {
+    "id": 17,
+    "name": "Las Fallas",
+    "campus": [
+      "英才"
+    ],
+    "category": "義式",
+    "emoji": "🍝",
+    "dist": 28,
+    "avg_price": 260,
+    "rating": 4.4,
+    "rating_count": 649,
+    "address": "台中市北區五常街200號",
+    "lat": 24.1598054,
+    "lng": 120.68004819999999,
+    "phone": "04-2203-8122",
+    "hours": {
+      "mon": "11:00-14:00",
+      "tue": "11:00-21:00",
+      "wed": "11:00-21:00",
+      "thu": "11:00-21:00",
+      "fri": "11:00-21:00",
+      "sat": "11:00-21:00",
+      "sun": "11:00-21:00"
+    },
+    "hours_display": "11:00–21:00（週一至14:00）",
+    "tags": [
+      "義大利麵",
+      "披薩",
+      "地中海料理"
+    ],
+    "student_discount": false,
+    "discount_detail": null,
+    "open": true
+  },
+  {
+    "id": 18,
+    "name": "森林小徑·健行店",
+    "campus": [
+      "英才"
+    ],
+    "category": "義式",
+    "emoji": "🍕",
+    "dist": 33,
+    "avg_price": 300,
+    "rating": 4.8,
+    "rating_count": 1372,
+    "address": "台中市北區健行路480-1號",
+    "lat": 24.1595116,
+    "lng": 120.6798849,
+    "phone": "04-2207-3198",
+    "hours": {
+      "mon": "11:30-21:30",
+      "tue": "11:30-21:30",
+      "wed": "11:30-21:30",
+      "thu": "11:30-21:30",
+      "fri": "11:30-21:30",
+      "sat": "11:30-21:30",
+      "sun": "11:30-21:30"
+    },
+    "hours_display": "11:30–21:30",
+    "tags": [
+      "義大利麵",
+      "披薩",
+      "貓咪餐廳"
+    ],
+    "student_discount": false,
+    "discount_detail": null,
+    "open": true
+  },
+  {
+    "id": 19,
+    "name": "Piao Niao",
+    "campus": [
+      "英才"
+    ],
+    "category": "台式",
+    "emoji": "🍗",
+    "dist": 36,
+    "avg_price": 200,
+    "rating": 4.6,
+    "rating_count": 588,
+    "address": "台中市北區五常街202號",
+    "lat": 24.159895799999997,
+    "lng": 120.6800565,
+    "phone": "0932-818-100",
+    "hours": {
+      "mon": null,
+      "tue": "11:00-14:30",
+      "wed": "11:00-14:30",
+      "thu": "11:00-14:30",
+      "fri": "11:00-14:30",
+      "sat": "11:00-14:30",
+      "sun": "11:00-14:30"
+    },
+    "hours_display": "11:00–14:30、17:00–20:30（週一公休）",
+    "tags": [
+      "炸雞",
+      "台式料理",
+      "定食"
+    ],
+    "student_discount": false,
+    "discount_detail": null,
+    "open": true
+  },
+  {
+    "id": 20,
+    "name": "日食日子",
+    "campus": [
+      "英才"
+    ],
+    "category": "日式",
+    "emoji": "🍝",
+    "dist": 58,
+    "avg_price": 250,
+    "rating": 4.7,
+    "rating_count": 52,
+    "address": "台中市北區五常街230號",
+    "lat": 24.160105800000004,
+    "lng": 120.6800415,
+    "phone": "0917-572-225",
+    "hours": {
+      "mon": null,
+      "tue": null,
+      "wed": null,
+      "thu": null,
+      "fri": null,
+      "sat": null,
+      "sun": null
+    },
+    "hours_display": "請電洽確認",
+    "tags": [
+      "義大利麵",
+      "日式定食",
+      "西式"
+    ],
+    "student_discount": false,
+    "discount_detail": null,
+    "open": true
+  },
+  {
+    "id": 21,
+    "name": "泰小館 Tiny Thai",
+    "campus": [
+      "英才"
+    ],
+    "category": "泰式",
+    "emoji": "🌶️",
+    "dist": 61,
+    "avg_price": 250,
+    "rating": 4.3,
+    "rating_count": 310,
+    "address": "台中市北區五常街223號1F",
+    "lat": 24.1600526,
+    "lng": 120.6798639,
+    "phone": "0905-815-321",
+    "hours": {
+      "mon": null,
+      "tue": "18:00-21:00",
+      "wed": "18:00-21:00",
+      "thu": "18:00-21:00",
+      "fri": "18:00-21:00",
+      "sat": "11:30-21:00",
+      "sun": "11:30-21:00"
+    },
+    "hours_display": "18:00–21:00（週六日11:30起；週一公休）",
+    "tags": [
+      "泰式料理",
+      "打拋豬",
+      "咖哩"
+    ],
+    "student_discount": false,
+    "discount_detail": null,
+    "open": true
+  },
+  {
+    "id": 22,
+    "name": "豐雞號台中學士店",
+    "campus": [
+      "英才"
+    ],
+    "category": "港式",
+    "emoji": "🍗",
+    "dist": 70,
+    "avg_price": 150,
+    "rating": 4.1,
+    "rating_count": 400,
+    "address": "台中市北區學士路183號",
+    "lat": 24.159808599999998,
+    "lng": 120.68084850000001,
+    "phone": "04-2202-5282",
+    "hours": {
+      "mon": "10:30-13:50",
+      "tue": "10:30-13:50",
+      "wed": "10:30-13:50",
+      "thu": "10:30-13:50",
+      "fri": "10:30-13:50",
+      "sat": null,
+      "sun": "10:30-13:50"
+    },
+    "hours_display": "10:30–13:50、16:40–19:30（週六公休）",
+    "tags": [
+      "港式",
+      "燒臘飯",
+      "雞腿"
+    ],
+    "student_discount": false,
+    "discount_detail": null,
+    "open": true
+  },
+  {
+    "id": 23,
+    "name": "橫食POKÉ",
+    "campus": [
+      "英才"
+    ],
+    "category": "輕食",
+    "emoji": "🥗",
+    "dist": 91,
+    "avg_price": 200,
+    "rating": 4.8,
+    "rating_count": 422,
+    "address": "台中市北區五常街168號",
+    "lat": 24.1587867,
+    "lng": 120.68014640000001,
+    "phone": "0983-319-589",
+    "hours": {
+      "mon": "11:15-14:30",
+      "tue": "11:15-14:30",
+      "wed": "11:15-14:30",
+      "thu": "11:15-14:30",
+      "fri": "11:15-14:30",
+      "sat": null,
+      "sun": null
+    },
+    "hours_display": "11:15–14:30、16:00–20:00（週六日公休）",
+    "tags": [
+      "夏威夷飯碗",
+      "健康輕食",
+      "沙拉"
+    ],
+    "student_discount": false,
+    "discount_detail": null,
+    "open": true
+  },
+  {
+    "id": 24,
+    "name": "雙滷堂",
+    "campus": [
+      "英才"
+    ],
+    "category": "台式",
+    "emoji": "🍽️",
+    "dist": 98,
+    "avg_price": 300,
+    "rating": 4.1,
+    "rating_count": 1332,
+    "address": "台中市北區學士路194號",
+    "lat": 24.159990099999998,
+    "lng": 120.68106519999998,
+    "phone": "04-2237-3087",
+    "hours": {
+      "mon": "10:00-21:00",
+      "tue": "10:00-21:00",
+      "wed": "10:00-21:00",
+      "thu": "10:00-21:00",
+      "fri": "10:00-21:00",
+      "sat": "10:00-21:00",
+      "sun": null
+    },
+    "hours_display": "10:00–21:00（週日公休）",
+    "tags": [
+      "台式料理",
+      "家常菜",
+      "聚餐"
+    ],
+    "student_discount": false,
+    "discount_detail": null,
+    "open": true
+  },
+  {
+    "id": 25,
+    "name": "浪食堂炭烤便當（五常店）",
+    "campus": [
+      "英才"
+    ],
+    "category": "便當",
+    "emoji": "🍱",
+    "dist": 111,
+    "avg_price": 150,
+    "rating": 4.5,
+    "rating_count": 535,
+    "address": "台中市北區五常街164號",
+    "lat": 24.1586124,
+    "lng": 120.68004689999998,
+    "phone": "04-2202-0382",
+    "hours": {
+      "mon": "10:00-13:30",
+      "tue": "10:00-13:30",
+      "wed": "10:00-13:30",
+      "thu": "10:00-13:30",
+      "fri": "10:00-13:30",
+      "sat": "10:00-13:00",
+      "sun": null
+    },
+    "hours_display": "10:00–13:30、16:00–19:00（週六至13:00；週日公休）",
+    "tags": [
+      "炭烤便當",
+      "排骨",
+      "台式"
+    ],
+    "student_discount": false,
+    "discount_detail": null,
+    "open": true
+  },
+  {
+    "id": 26,
+    "name": "香縈1968-日日伴飯",
+    "campus": [
+      "英才"
+    ],
+    "category": "異國",
+    "emoji": "🍛",
+    "dist": 133,
+    "avg_price": 200,
+    "rating": 4.7,
+    "rating_count": 322,
+    "address": "台中市北區學士路196巷8號",
+    "lat": 24.159874,
+    "lng": 120.681475,
+    "phone": "04-2235-9835",
+    "hours": {
+      "mon": "11:00-14:30",
+      "tue": "11:00-14:30",
+      "wed": null,
+      "thu": "11:00-14:30",
+      "fri": "11:00-14:30",
+      "sat": "11:00-14:30",
+      "sun": "12:00-15:00"
+    },
+    "hours_display": "11:00–14:30、17:00–21:00（週三公休）",
+    "tags": [
+      "南洋咖哩",
+      "異國料理",
+      "定食"
+    ],
+    "student_discount": false,
+    "discount_detail": null,
+    "open": true
+  },
+  {
+    "id": 27,
+    "name": "小小麥遇鄰居酒屋",
+    "campus": [
+      "英才"
+    ],
+    "category": "居酒屋",
+    "emoji": "🍢",
+    "dist": 145,
+    "avg_price": 400,
+    "rating": 4.8,
+    "rating_count": 1833,
+    "address": "台中市北區學士路196巷9號",
+    "lat": 24.160052,
+    "lng": 120.681545,
+    "phone": "04-2236-2266",
+    "hours": {
+      "mon": "17:30-24:00",
+      "tue": "17:30-24:00",
+      "wed": "17:30-24:00",
+      "thu": "17:30-24:00",
+      "fri": "17:30-24:00",
+      "sat": "17:30-24:00",
+      "sun": "17:30-24:00"
+    },
+    "hours_display": "17:30–00:00",
+    "tags": [
+      "居酒屋",
+      "串燒",
+      "生魚片"
+    ],
+    "student_discount": false,
+    "discount_detail": null,
+    "open": true
+  },
+  {
+    "id": 28,
+    "name": "寧瓏小館",
+    "campus": [
+      "英才"
+    ],
+    "category": "台式",
+    "emoji": "🍽️",
+    "dist": 151,
+    "avg_price": 200,
+    "rating": 4.1,
+    "rating_count": 1189,
+    "address": "台中市北區學士路146號",
+    "lat": 24.158512899999998,
+    "lng": 120.68109000000001,
+    "phone": "04-2236-0959",
+    "hours": {
+      "mon": "10:30-20:00",
+      "tue": "10:30-20:00",
+      "wed": "10:30-20:00",
+      "thu": "10:30-20:00",
+      "fri": "10:30-20:00",
+      "sat": "10:30-20:00",
+      "sun": "10:30-20:00"
+    },
+    "hours_display": "10:30–20:00",
+    "tags": [
+      "台式料理",
+      "泡菜",
+      "家常菜"
+    ],
+    "student_discount": false,
+    "discount_detail": null,
+    "open": true
+  },
+  {
+    "id": 29,
+    "name": "麵屋六花MenyaRokka",
+    "campus": [
+      "英才"
+    ],
+    "category": "日式",
+    "emoji": "🍜",
+    "dist": 165,
+    "avg_price": 280,
+    "rating": 4.4,
+    "rating_count": 2609,
+    "address": "台中市北區學士路236巷2號",
+    "lat": 24.160760999999997,
+    "lng": 120.68121300000001,
+    "phone": null,
+    "hours": {
+      "mon": "11:30-21:00",
+      "tue": "11:30-21:00",
+      "wed": "11:30-21:00",
+      "thu": "11:30-21:00",
+      "fri": "11:30-21:00",
+      "sat": "11:30-21:00",
+      "sun": "11:30-21:00"
+    },
+    "hours_display": "11:30–21:00",
+    "tags": [
+      "拉麵",
+      "日式",
+      "無限加麵"
+    ],
+    "student_discount": false,
+    "discount_detail": null,
+    "open": true
+  },
+  {
+    "id": 30,
+    "name": "好味快餐便當",
+    "campus": [
+      "英才"
+    ],
+    "category": "便當",
+    "emoji": "🍱",
+    "dist": 185,
+    "avg_price": 80,
+    "rating": 4.0,
+    "rating_count": 166,
+    "address": "台中市北區美德街201-4號",
+    "lat": 24.1581384,
+    "lng": 120.6793383,
+    "phone": "04-2207-0808",
+    "hours": {
+      "mon": "10:30-13:30",
+      "tue": "10:30-13:30",
+      "wed": "10:30-13:30",
+      "thu": "10:30-13:30",
+      "fri": "10:30-13:30",
+      "sat": "10:30-13:30",
+      "sun": null
+    },
+    "hours_display": "10:30–13:30、17:00–19:00（週日公休）",
+    "tags": [
+      "便當",
+      "台式",
+      "雞腿"
+    ],
+    "student_discount": false,
+    "discount_detail": null,
+    "open": true
+  },
+  {
+    "id": 31,
+    "name": "花漾汎汎鍋-健行店",
+    "campus": [
+      "英才"
+    ],
+    "category": "火鍋",
+    "emoji": "🫕",
+    "dist": 206,
+    "avg_price": 350,
+    "rating": 4.4,
+    "rating_count": 2275,
+    "address": "台中市北區健行路556號",
+    "lat": 24.1593278,
+    "lng": 120.67819030000001,
+    "phone": "04-2201-0707",
+    "hours": {
+      "mon": "11:30-16:00",
+      "tue": "11:30-16:00",
+      "wed": "11:30-16:00",
+      "thu": "11:30-16:00",
+      "fri": "11:30-16:00",
+      "sat": "11:30-16:00",
+      "sun": "11:30-16:00"
+    },
+    "hours_display": "11:30–16:00、17:00–21:00（週五六至21:30）",
+    "tags": [
+      "火鍋",
+      "吃到飽",
+      "鐵板燒"
+    ],
+    "student_discount": false,
+    "discount_detail": null,
+    "open": true
+  },
+  {
+    "id": 32,
+    "name": "丼手丼腳必吃丼飯",
+    "campus": [
+      "英才"
+    ],
+    "category": "日式",
+    "emoji": "🍚",
+    "dist": 224,
+    "avg_price": 130,
+    "rating": 4.8,
+    "rating_count": 124,
+    "address": "台中市北區大德街73號",
+    "lat": 24.1580943,
+    "lng": 120.6787307,
+    "phone": "0931-090-307",
+    "hours": {
+      "mon": "11:00-13:30",
+      "tue": "11:00-13:30",
+      "wed": "11:00-13:30",
+      "thu": "11:00-13:30",
+      "fri": "11:00-13:30",
+      "sat": "11:00-13:30",
+      "sun": null
+    },
+    "hours_display": "11:00–13:30、16:30–19:30（週日公休）",
+    "tags": [
+      "丼飯",
+      "便當",
+      "日式"
+    ],
+    "student_discount": false,
+    "discount_detail": null,
+    "open": true
+  },
+  {
+    "id": 33,
+    "name": "八又三分之一",
+    "campus": [
+      "英才"
+    ],
+    "category": "西式",
+    "emoji": "🍝",
+    "dist": 227,
+    "avg_price": 250,
+    "rating": 4.8,
+    "rating_count": 1565,
+    "address": "台中市北區美德街232號",
+    "lat": 24.1583416,
+    "lng": 120.6784324,
+    "phone": "04-2207-6957",
+    "hours": {
+      "mon": "10:30-20:00",
+      "tue": "10:30-20:00",
+      "wed": "10:30-20:00",
+      "thu": "10:30-20:00",
+      "fri": "10:30-20:00",
+      "sat": "10:30-20:00",
+      "sun": "10:30-20:00"
+    },
+    "hours_display": "10:30–20:00",
+    "tags": [
+      "義大利麵",
+      "燉飯",
+      "沙拉"
+    ],
+    "student_discount": false,
+    "discount_detail": null,
+    "open": true
+  },
+  {
+    "id": 34,
+    "name": "北方館",
+    "campus": [
+      "英才"
+    ],
+    "category": "中式",
+    "emoji": "🥟",
+    "dist": 234,
+    "avg_price": 100,
+    "rating": 3.7,
+    "rating_count": 1257,
+    "address": "台中市北區美德街152號",
+    "lat": 24.1582553,
+    "lng": 120.6819796,
+    "phone": "04-2232-3588",
+    "hours": {
+      "mon": "11:00-14:00",
+      "tue": null,
+      "wed": "11:00-14:00",
+      "thu": "11:00-14:00",
+      "fri": "11:00-14:00",
+      "sat": "11:00-14:00",
+      "sun": "11:00-14:00"
+    },
+    "hours_display": "11:00–14:00、17:00–20:00（週二公休）",
+    "tags": [
+      "刀削麵",
+      "水餃",
+      "北方料理"
+    ],
+    "student_discount": false,
+    "discount_detail": null,
+    "open": true
+  },
+  {
+    "id": 35,
+    "name": "味自慢台日廚房",
+    "campus": [
+      "英才"
+    ],
+    "category": "日式",
+    "emoji": "🍱",
+    "dist": 258,
+    "avg_price": 120,
+    "rating": 4.6,
+    "rating_count": 1446,
+    "address": "台中市北區學士路274號",
+    "lat": 24.1617761,
+    "lng": 120.6810796,
+    "phone": "04-2235-7956",
+    "hours": {
+      "mon": null,
+      "tue": "11:30-14:00",
+      "wed": "11:30-14:00",
+      "thu": "11:30-14:00",
+      "fri": "11:30-14:00",
+      "sat": "11:30-14:30",
+      "sun": "11:30-14:30"
+    },
+    "hours_display": "11:30–14:00、17:00–20:30（週一公休）",
+    "tags": [
+      "日式定食",
+      "丼飯",
+      "便當"
+    ],
+    "student_discount": false,
+    "discount_detail": null,
+    "open": true
+  },
+  {
+    "id": 36,
+    "name": "湖南老兵臭豆腐",
+    "campus": [
+      "英才"
+    ],
+    "category": "台式小吃",
+    "emoji": "🍢",
+    "dist": 263,
+    "avg_price": 80,
+    "rating": 4.5,
+    "rating_count": 532,
+    "address": "台中市北區永興街2號",
+    "lat": 24.1583558,
+    "lng": 120.68240639999999,
+    "phone": "04-2234-1813",
+    "hours": {
+      "mon": "15:00-22:00",
+      "tue": "15:00-22:00",
+      "wed": "15:00-22:00",
+      "thu": "15:00-22:00",
+      "fri": "15:00-22:00",
+      "sat": "15:00-22:00",
+      "sun": null
+    },
+    "hours_display": "15:00–22:00（週日公休）",
+    "tags": [
+      "臭豆腐",
+      "台式小吃",
+      "豬血湯"
+    ],
+    "student_discount": false,
+    "discount_detail": null,
+    "open": true
+  },
+  {
+    "id": 37,
+    "name": "Heart&soul拉麵",
+    "campus": [
+      "英才"
+    ],
+    "category": "日式",
+    "emoji": "🍜",
+    "dist": 620,
+    "avg_price": 300,
+    "rating": 4.3,
+    "rating_count": 1247,
+    "address": "台中市北區五常街60號",
+    "lat": 24.154046899999997,
+    "lng": 120.68078810000002,
+    "phone": "04-2206-0356",
+    "hours": {
+      "mon": null,
+      "tue": "11:30-13:30",
+      "wed": "11:30-13:30",
+      "thu": "11:30-13:30",
+      "fri": "11:30-13:30",
+      "sat": "11:30-13:30",
+      "sun": "11:30-13:30"
+    },
+    "hours_display": "11:30–13:30、17:00–20:30（週一公休）",
+    "tags": [
+      "拉麵",
+      "日式",
+      "豚骨"
+    ],
+    "student_discount": false,
+    "discount_detail": null,
+    "open": true
+  },
+  {
+    "id": 38,
+    "name": "老滷酸辣粉",
+    "campus": [
+      "英才"
+    ],
+    "category": "中式",
+    "emoji": "🍜",
+    "dist": 437,
+    "avg_price": 130,
+    "rating": 4.6,
+    "rating_count": 827,
+    "address": "台中市北區梅亭街464號",
+    "lat": 24.1604773,
+    "lng": 120.67600329999999,
+    "phone": "0909-239-464",
+    "hours": {
+      "mon": null,
+      "tue": "11:00-19:00",
+      "wed": "11:00-19:00",
+      "thu": "11:00-19:00",
+      "fri": "11:00-19:00",
+      "sat": "11:00-19:00",
+      "sun": null
+    },
+    "hours_display": "11:00–19:00（週一、日公休）",
+    "tags": [
+      "酸辣粉",
+      "麻辣燙",
+      "中式小吃"
+    ],
+    "student_discount": false,
+    "discount_detail": null,
+    "open": true
+  },
+  {
+    "id": 39,
+    "name": "老王咖哩-五義店",
+    "campus": [
+      "英才"
+    ],
+    "category": "日式",
+    "emoji": "🍛",
+    "dist": 627,
+    "avg_price": 130,
+    "rating": 4.5,
+    "rating_count": 746,
+    "address": "台中市北區五義街149號",
+    "lat": 24.154026899999998,
+    "lng": 120.681163,
+    "phone": "04-2207-1188",
+    "hours": {
+      "mon": "11:00-14:00",
+      "tue": "11:00-14:00",
+      "wed": "11:00-14:00",
+      "thu": "11:00-14:00",
+      "fri": "11:00-14:00",
+      "sat": "11:00-14:00",
+      "sun": "11:00-14:00"
+    },
+    "hours_display": "11:00–14:00、17:00–20:00",
+    "tags": [
+      "咖哩",
+      "日式咖哩",
+      "豬排"
+    ],
+    "student_discount": false,
+    "discount_detail": null,
+    "open": true
+  },
+  {
+    "id": 40,
+    "name": "久久火鍋",
+    "campus": [
+      "英才"
+    ],
+    "category": "火鍋",
+    "emoji": "🫕",
+    "dist": 363,
+    "avg_price": 400,
+    "rating": 4.8,
+    "rating_count": 1039,
+    "address": "台中市北區梅川東路三段147號",
+    "lat": 24.1599617,
+    "lng": 120.6766402,
+    "phone": "04-2235-6676",
+    "hours": {
+      "mon": "16:30-24:00",
+      "tue": "16:30-24:00",
+      "wed": null,
+      "thu": "16:30-24:00",
+      "fri": "16:30-24:00",
+      "sat": "16:30-24:00",
+      "sun": "16:30-24:00"
+    },
+    "hours_display": "16:30–00:00（週三公休）",
+    "tags": [
+      "石頭火鍋",
+      "韓式烤肉",
+      "聚餐"
+    ],
+    "student_discount": false,
+    "discount_detail": null,
+    "open": true
   }
 ]
