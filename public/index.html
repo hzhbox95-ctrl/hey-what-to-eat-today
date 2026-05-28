@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>欸！今天要吃啥 — CMU</title>
+<title>欸！今天要吃啥 — 中國醫藥大學</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 <style>
 /* ═══════════════════════════════════════
@@ -272,7 +272,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Noto Sans TC',sans-serif;
   <div class="brand">
     <span class="brand-emoji">🍜</span>
     <div class="brand-name">欸！今天要吃啥</div>
-    <div class="brand-sub">CMU · 美食探索平台</div>
+    <div class="brand-sub">中國醫藥大學 · 美食探索平台</div>
   </div>
   <div class="auth-card">
     <div class="auth-tabs">
@@ -334,6 +334,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Noto Sans TC',sans-serif;
     <div class="logo">
       <span class="logo-emoji">🍜</span>
       <div class="logo-title">欸！今天要吃啥</div>
+      <div class="logo-sub">中國醫藥大學</div>
     </div>
     <div class="campus-box">
       <div class="campus-label">選擇校區</div>
@@ -493,8 +494,22 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Noto Sans TC',sans-serif;
           <div id="friendList">
             <div class="fc">
               <div class="favt" style="background:var(--slate)"><i class="ti ti-user" style="font-size:14px"></i></div>
-
-    </div>
+              <div style="flex:1">
+                <div style="font-size:12px;color:var(--tx);font-weight:700">王小明</div>
+                <div style="font-size:10px;color:var(--muted)">醫學系 · 線上</div>
+              </div>
+              <button class="btn btn-sm btn-outline" onclick="inv('王小明')"
+                style="border-color:var(--clay);color:var(--clay-d);">邀揪團</button>
+            </div>
+            <div class="fc">
+              <div class="favt" style="background:var(--rose)"><i class="ti ti-user" style="font-size:14px"></i></div>
+              <div style="flex:1">
+                <div style="font-size:12px;color:var(--tx);font-weight:700">李小華</div>
+                <div style="font-size:10px;color:var(--muted)">藥學系 · 線上</div>
+              </div>
+              <button class="btn btn-sm btn-outline" onclick="inv('李小華')"
+                style="border-color:var(--clay);color:var(--clay-d);">邀揪團</button>
+            </div>
           </div>
           <button class="btn btn-slate btn-full" onclick="toggleAF()">＋ 新增好友</button>
           <div class="af-panel" id="afPanel">
