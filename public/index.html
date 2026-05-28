@@ -958,6 +958,17 @@ function renderGroups(){
   }).join('');
   active.forEach(g=>{const ca=document.getElementById('chat-'+g.id);if(ca)ca.scrollTop=ca.scrollHeight;});
 }
+async function loadMessages(groupId){
+  const res = await fetch(`/api/groups/${groupId}/messages`);
+  const msgs = await res.json();
+
+  const chat = document.getElementById(`chat-${groupId}`);
+  if(!chat) return;
+
+  chat.innerHTML = msgs
+    .map(m => `<div class="cmsg"><b>${m.name}：</b>${m.text}</div>`)
+    .join('');
+}
 async function sendMsg(groupId){
   const inp=document.getElementById('mi-'+groupId);
   if(!inp||!inp.value.trim())return;
@@ -966,7 +977,7 @@ async function sendMsg(groupId){
     await fetch(`/api/groups/${groupId}/messages`,{method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({sid:currentUser.id,name:currentUser.name,text})});
-    await loadGroups();
+    await loadGroups(groupId);
   }catch(e){console.error('sendMsg',e);}
 }
 function setDur(h){
