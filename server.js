@@ -182,6 +182,60 @@ app.get('/api/friends/:sid', (req, res) => {
   res.json(friendList);
 });
 
+// ────────────────────────────────────────
+//  工具：讀寫 groups.json
+// ────────────────────────────────────────
+function readGroups() {
+  try { return JSON.parse(fs.readFileSync('./data/groups.json', 'utf8')); }
+  catch { return { groups: [] }; }
+}
+function writeGroups(data) {
+  fs.writeFileSync('./data/groups.json', JSON.stringify(data, null, 2));
+}
+
+// 取得某使用者的所有揪團
+app.get('/api/groups/user/:sid', (req, res) => {
+  const db = readGroups();
+  const list = db.groups.filter(g => g.members.includes(req.params.sid));
+  res.json(list);
+});
+
+// 建立揪團
+app.post('/api/groups', (req, res) => {
+  const { name, rest, creator, creatorName, memberSids, durHours } = req.body;
+  const db = readGroups();
+  const id = Date.now();
+  const members = [creator, ...(memberSids || []).filter(s => s !== creator)];
+  db.groups.push({
+    id, name, rest: rest || '', creator, members,
+    exp: Date.now() + (durHours || 2) * 3600000,
+    messages: [{ sid: 'system', name: '系統',
+      text: `「${name}」已建立，${durHours || 2}小時後自動解散 🌿`,
+      time: new Date().toISOString() }]
+  });
+  writeGroups(db);
+  res.json({ success: true, id });
+});
+
+// 取得揪團訊息
+app.get('/api/groups/:id/messages', (req, res) => {
+  const db = readGroups();
+  const g = db.groups.find(g => g.id === Number(req.params.id));
+  if (!g) return res.status(404).json([]);
+  res.json(g.messages);
+});
+
+// 送出訊息
+app.post('/api/groups/:id/messages', (req, res) => {
+  const { sid, name, text } = req.body;
+  const db = readGroups();
+  const g = db.groups.find(g => g.id === Number(req.params.id));
+  if (!g) return res.status(404).json({ success: false });
+  g.messages.push({ sid, name, text, time: new Date().toISOString() });
+  writeGroups(db);
+  res.json({ success: true });
+});
+
 // 所有其他路徑都回傳 index.html
 app.use((req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
