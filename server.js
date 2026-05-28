@@ -91,7 +91,7 @@ app.post('/api/friend-request', (req, res) => {
   if (from === to)  return res.status(400).json({ success: false, message: '不能加自己為好友' });
 
   // 確認對方學號存在
-  const users = readJSON('users.json');
+  const users = readJSON(path.join(__dirname, 'data', 'users.json'));
   const target = users.find(u => u.sid === to);
   if (!target) return res.status(404).json({ success: false, message: '找不到此學號的使用者' });
 
@@ -172,7 +172,7 @@ app.post('/api/friend-request/decline', (req, res) => {
 app.get('/api/friends/:sid', (req, res) => {
   const sid = req.params.sid;
   const db  = readFriendships();
-  const users = readJSON('users.json');
+  const users = readJSON(path.join(__dirname, 'data', 'users.json'));
 
   const friendSids = db.friends
     .filter(f => f.user1 === sid || f.user2 === sid)
