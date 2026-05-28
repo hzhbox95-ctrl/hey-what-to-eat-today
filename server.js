@@ -5,6 +5,10 @@ const path = require('path');
 const app = express();
 const PORT = 3000;
 
+function readJSON(filePath) {
+  return JSON.parse(fs.readFileSync(filePath, 'utf8'));
+}
+
 // 讓 Express 能讀取 JSON 格式的請求
 app.use(express.json());
 
