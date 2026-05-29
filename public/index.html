@@ -522,6 +522,18 @@ const CAT_GRAD={
   "健康餐":"#A8B8A0,#96A890","飲料":"#D4B5B0,#C0A0A0","火鍋":"#C4956A,#B08058",
   "中式":"#B5A090,#A09080","海鮮":"#9DAFBD,#8A9CB0","輕食":"#C4B49A,#A89880"
 };
+
+const DEPT_DEALS={
+  '醫放系':[
+    {name:'炒飯超人',       deal:'免費加大'},
+    {name:'日青晨食',       deal:'滿百折五元'},
+    {name:'丸形食屋',       deal:'九折優惠'},
+    {name:'食樂炭烤土司',   deal:'滿百打九折'},
+    {name:'若洵',           deal:'上傳限動或 Google 評論享主餐 95 折或布丁一顆（同時完成兩者皆有）'},
+    {name:'貓起來吃雞蛋燒', deal:'滿百打九折'},
+  ]
+};
+
 const DEPTS=['醫學系','醫技系','醫放系','中醫系','學士後中醫','中資系',
   '藥學系','藥妝系','公衛系','職安系','醫管系','護理系',
   '物治系','運醫系','營養系','牙醫系','醫工系'];
@@ -752,10 +764,30 @@ function switchDT(type,el){
 function buildDeptGrid(){
   document.getElementById('deptGrid').innerHTML=DEPTS.map(d=>`<div class="dept-item" onclick="deptClick(this,'${d}')">${d}</div>`).join('');
 }
+
 function deptClick(el,dept){
-  document.querySelectorAll('.dept-item').forEach(d=>d.classList.remove('sel'));el.classList.add('sel');
-  document.getElementById('deptMsg').textContent=`${dept} 目前尚未登錄專屬優惠，歡迎系學會聯繫合作 🤝`;
-  document.getElementById('deptRes').style.display='block';
+  document.querySelectorAll('.dept-item').forEach(d=>d.classList.remove('sel'));
+  el.classList.add('sel');
+  const deals=DEPT_DEALS[dept];
+  const res=document.getElementById('deptRes');
+  if(deals&&deals.length){
+    res.style.display='block';
+    res.innerHTML=`
+      <div style="font-size:11px;font-weight:700;color:var(--tx);margin-bottom:8px">${dept} 專屬優惠 🎉</div>
+      ${deals.map(d=>`
+        <div class="dcard" style="cursor:default">
+          <div class="dico" style="background:linear-gradient(135deg,#C4B49A,#A89880)">🏪</div>
+          <div>
+            <div style="font-size:13px;font-weight:700;color:var(--tx)">${d.name}</div>
+            <div style="font-size:11px;color:var(--sage);margin-top:3px;font-weight:600">${d.deal}</div>
+            <div style="font-size:10px;color:var(--muted);margin-top:2px">持醫放系相關證明即可享用</div>
+          </div>
+        </div>`).join('')}`;
+  } else {
+    res.style.display='block';
+    res.innerHTML=`<div class="dcard"><div style="font-size:12px;color:var(--sub);font-weight:600">
+      ${dept} 目前尚未登錄專屬優惠，歡迎系學會聯繫合作 🤝</div></div>`;
+  }
 }
 
 function switchTab(t,el){
